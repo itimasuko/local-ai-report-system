@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # --- 管理者画面 ---
+  admin:
+    build: .
+    container_name: report-admin
+    command: streamlit run admin.py --server.port 8501 --server.address 0.0.0.0
+    volumes:
+      - .:/app  # 現在のフォルダをコンテナ内に同期
+    ports:
+      - "8501:8501"
+    depends_on:
+      - worker
+    restart: always
+
+  # --- 一般ユーザー画面 ---
+  user:
+    build: .
+    container_name: report-user
+    command: streamlit run user.py --server.port 8502 --server.address 0.0.0.0
+    volumes:
+      - .:/app
+    ports:
+      - "8502:8502"
+    depends_on:
+      - worker
+    restart: always
+
+  # --- 裏方の作業員 ---
+  worker:
+    build: .
+    container_name: report-worker
+    command: python worker.py -u
+    volumes:
+      - .:/app
+    restart: always

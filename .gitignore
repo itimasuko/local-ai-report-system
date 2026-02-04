@@ -1,0 +1,23 @@
+# --- Pythonキャッシュ ---
+__pycache__/
+*.pyc
+venv/
+
+# --- 設定ファイル (個人情報は隠す) ---
+config.json
+.streamlit/
+
+# --- データ類 (中身は除外するがフォルダ自体は維持する) ---
+input_data/*
+!input_data/.gitkeep
+
+output_reports/*
+!output_reports/.gitkeep
+
+static/processed_data/*
+!static/processed_data/.gitkeep
+
+# --- 一時ファイル ---
+start.signal
+status.json
+.DS_Store
